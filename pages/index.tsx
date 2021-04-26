@@ -6,6 +6,8 @@ import Link from 'next/link'
 import Date from '../components/date'
 import { GetStaticProps } from 'next'
 import MapChart from '../components/MapChart'
+import ReactTooltip from "react-tooltip";
+import React, { useState } from 'react'
 
 export default function Home({
   allPostsData
@@ -31,7 +33,9 @@ export default function Home({
 
 
       <section>
-        <MapChart></MapChart>
+        <MapChart setTooltipContent={""}></MapChart>
+        <ReactTooltip></ReactTooltip>
+
       </section>
 
 

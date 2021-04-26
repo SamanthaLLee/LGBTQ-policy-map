@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "d3-fetch": "^2.0.0",
     "d3-scale": "^3.3.0",
     "date-fns": "^2.11.1",

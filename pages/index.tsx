@@ -8,16 +8,12 @@ import { GetStaticProps } from 'next'
 import MapChart from '../components/MapChart'
 import ReactTooltip from "react-tooltip";
 import React, { useState } from 'react'
+import useSWR from 'swr'
 
-export default function Home({
-  allPostsData
-}: {
-  allPostsData: {
-    date: string
-    title: string
-    id: string
-  }[]
-}) {
+// const endpoint = `http://localhost:3000/api/test`
+const legiscanEndpoint = `https://api.legiscan.com/?key=8dcb3de47fe70382df13df111e1b7d8e&op=search&state=NJ&query=LGBTQ`
+
+export default function Home({ data }){
   return (
     <Layout home>
       <Head>
@@ -38,34 +34,27 @@ export default function Home({
 
       </section>
 
-
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Blog</h2>
         <ul className={utilStyles.list}>
-          {allPostsData.map(({ id, date, title }) => (
-            <li className={utilStyles.listItem} key={id}>
-              {/* Read{' '} */}
-              <Link href={`/posts/${id}`}>
-              {/* <Link href={`/posts/first-post`}> */}
-                <a>{title}</a>
-              </Link>
-              <br />
-              <small className={utilStyles.lightText}>
-                <Date dateString={date} />
-              </small>
-            </li>
-          ))}
+          
         </ul>
       </section>
     </Layout>
   )
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  const allPostsData = getSortedPostsData()
+export async function getStaticProps() {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+  const res = await fetch(legiscanEndpoint)
+  const data = await res.json()
+
+  // By returning { props: { posts } }, the Blog component
+  // will receive `posts` as a prop at build time
   return {
     props: {
-      allPostsData
-    }
+      data,
+    },
   }
 }

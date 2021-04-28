@@ -8,12 +8,16 @@ import { GetStaticProps } from 'next'
 import MapChart from '../components/MapChart'
 import ReactTooltip from "react-tooltip";
 import React, { useState } from 'react'
-import useSWR from 'swr'
+import { getAllStateIds } from '../lib/state'
 
 // const endpoint = `http://localhost:3000/api/test`
-const legiscanEndpoint = `https://api.legiscan.com/?key=8dcb3de47fe70382df13df111e1b7d8e&op=search&state=NJ&query=LGBTQ`
+// const legiscanEndpoint = `https://api.legiscan.com/?key=8dcb3de47fe70382df13df111e1b7d8e&op=search&state=NJ&query=LGBTQ`
+// const legiscanEndpoint = `https://api.legiscan.com/?key=8dcb3de47fe70382df13df111e1b7d8e&op=search&state=${params.id}&query=LGBTQ`
+const legiscanEndpoint = 'https://api.legiscan.com/?key=8dcb3de47fe70382df13df111e';
+export default function Home({ data, allStateIds }){
+  console.log(data)
+  console.log(allStateIds)
 
-export default function Home({ data }){
   return (
     <Layout home>
       <Head>
@@ -26,7 +30,6 @@ export default function Home({ data }){
           <a href="https://nextjs.org/learn">our Next.js tutorial</a>.)
         </p>
       </section>
-
 
       <section>
         <MapChart setTooltipContent={""}></MapChart>
@@ -45,16 +48,13 @@ export default function Home({ data }){
 }
 
 export async function getStaticProps() {
-  // Call an external API endpoint to get posts.
-  // You can use any data fetching library
   const res = await fetch(legiscanEndpoint)
   const data = await res.json()
-
-  // By returning { props: { posts } }, the Blog component
-  // will receive `posts` as a prop at build time
+  const allStateIds = getAllStateIds()
   return {
     props: {
       data,
+      allStateIds,
     },
   }
 }

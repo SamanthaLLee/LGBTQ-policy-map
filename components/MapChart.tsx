@@ -7,6 +7,7 @@ import {
   Marker,
   Annotation
 } from "react-simple-maps";
+import Link from 'next/link'
 
 import allStates from "../public/data/allstates.json";
 
@@ -26,13 +27,14 @@ const offsets = {
   DC: [49, 21]
 };
 
-const MapChart = ({ setTooltipContent }) => {
+const MapChart = ({ allStateIds, setTooltipContent }) => {
   return (
     <ComposableMap data-tip="" projection="geoAlbersUsa">
       <Geographies geography={geoUrl}>
-        {({ geographies }) => (
+        {({ geographies }) => ( 
           <>
             {geographies.map(geo => (
+              <Link href={`/state/${findStateIdByVal(allStateIds, geo.id).params.id}`}>
               <Geography
                 key={geo.rsmKey}
                 stroke="#FFF"
@@ -60,7 +62,7 @@ const MapChart = ({ setTooltipContent }) => {
                     outline: "none"
                   }
                 }}
-              />
+              /></Link>
             ))}
             {geographies.map(geo => {
               const centroid = geoCentroid(geo);
@@ -98,3 +100,9 @@ const MapChart = ({ setTooltipContent }) => {
 };
 
 export default MapChart;
+
+function findStateIdByVal(allStateIds, val) {
+  return allStateIds.find((element) => {
+    return element.params.val === val;
+  })
+}

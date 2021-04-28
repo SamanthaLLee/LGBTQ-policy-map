@@ -11,29 +11,31 @@ export function getAllStateIds() {
   return stateMappingData.map(state => {
     return {
       params: {
-        id: state.id
+        id: state.id,
+        val: state.val,
       }
     }
   })
 }
 
-export async function getStateData(state: string) {
-  const fullPath = path.join(postsDirectory, `${state}.md`)
-  const fileContents = fs.readFileSync(fullPath, 'utf8')
+// export async function getStateData(state: string) {
+//   const fullPath = path.join(postsDirectory, `${state}.md`)
+//   const fileContents = fs.readFileSync(fullPath, 'utf8')
 
-  // Use gray-matter to parse the post metadata section
-  const matterResult = matter(fileContents)
+//   // Use gray-matter to parse the post metadata section
+//   const matterResult = matter(fileContents)
 
-  // Use remark to convert markdown into HTML string
-  const processedContent = await remark()
-    .use(html)
-    .process(matterResult.content)
-  const contentHtml = processedContent.toString()
+//   // Use remark to convert markdown into HTML string
+//   const processedContent = await remark()
+//     .use(html)
+//     .process(matterResult.content)
+//   const contentHtml = processedContent.toString()
 
-  // Combine the data with the id and contentHtml
-  return {
-    state,
-    contentHtml,
-    ...(matterResult.data as { date: string; title: string })
-  }
-}
+//   // Combine the data with the id and contentHtml
+//   return {
+//     state,
+//     contentHtml,
+//     ...(matterResult.data as { date: string; title: string })
+//   }
+// }
+

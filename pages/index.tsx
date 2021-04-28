@@ -15,8 +15,8 @@ import { getAllStateIds } from '../lib/state'
 // const legiscanEndpoint = `https://api.legiscan.com/?key=8dcb3de47fe70382df13df111e1b7d8e&op=search&state=${params.id}&query=LGBTQ`
 const legiscanEndpoint = 'https://api.legiscan.com/?key=8dcb3de47fe70382df13df111e';
 export default function Home({ data, allStateIds }){
-  console.log(data)
-  console.log(allStateIds)
+  // console.log(data)
+  // console.log(allStateIds)
 
   return (
     <Layout home>
@@ -32,7 +32,7 @@ export default function Home({ data, allStateIds }){
       </section>
 
       <section>
-        <MapChart setTooltipContent={""}></MapChart>
+        <MapChart allStateIds={allStateIds} setTooltipContent={""}></MapChart>
         <ReactTooltip></ReactTooltip>
 
       </section>

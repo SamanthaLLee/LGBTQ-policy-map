@@ -5,9 +5,17 @@ import remark from 'remark'
 import html from 'remark-html'
 import { stateMappingData } from '/Users/samlee/nextjs-blog/public/data/allStates'
 
-const postsDirectory = path.join(process.cwd(), 'posts')
-
 export function getAllStateIds() {
+  return stateMappingData.map(state => {
+    return {
+      params: {
+        id: state.id,
+      }
+    }
+  })
+}
+
+export function getAllStateData() {
   return stateMappingData.map(state => {
     return {
       params: {
@@ -18,8 +26,15 @@ export function getAllStateIds() {
   })
 }
 
-// export async function getStateData(state: string) {
-//   const fullPath = path.join(postsDirectory, `${state}.md`)
+
+export async function getStateData(id: string) {
+  return {
+    id,
+  }
+}
+
+// export async function getPostData(id: string) {
+//   const fullPath = path.join(postsDirectory, `${id}.md`)
 //   const fileContents = fs.readFileSync(fullPath, 'utf8')
 
 //   // Use gray-matter to parse the post metadata section
@@ -33,7 +48,7 @@ export function getAllStateIds() {
 
 //   // Combine the data with the id and contentHtml
 //   return {
-//     state,
+//     id,
 //     contentHtml,
 //     ...(matterResult.data as { date: string; title: string })
 //   }

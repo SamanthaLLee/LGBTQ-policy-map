@@ -8,7 +8,7 @@ import { GetStaticProps } from 'next'
 import MapChart from '../components/MapChart'
 import ReactTooltip from "react-tooltip";
 import React, { useState } from 'react'
-import { getAllStateIds } from '../lib/state'
+import { getAllStateData } from '../lib/state'
 
 // const endpoint = `http://localhost:3000/api/test`
 // const legiscanEndpoint = `https://api.legiscan.com/?key=8dcb3de47fe70382df13df111e1b7d8e&op=search&state=NJ&query=LGBTQ`
@@ -50,7 +50,7 @@ export default function Home({ data, allStateIds }){
 export async function getStaticProps() {
   const res = await fetch(legiscanEndpoint)
   const data = await res.json()
-  const allStateIds = getAllStateIds()
+  const allStateIds = getAllStateData()
   return {
     props: {
       data,

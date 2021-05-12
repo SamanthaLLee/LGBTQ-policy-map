@@ -9,14 +9,32 @@ import MapChart from '../components/MapChart'
 import ReactTooltip from "react-tooltip";
 import React, { useState } from 'react'
 import { getAllStateData } from '../lib/state'
+import { IBillBasics, IBillDetails, BillStatus } from '../models/data'
 
-// const endpoint = `http://localhost:3000/api/test`
-// const legiscanEndpoint = `https://api.legiscan.com/?key=8dcb3de47fe70382df13df111e1b7d8e&op=search&state=NJ&query=LGBTQ`
-// const legiscanEndpoint = `https://api.legiscan.com/?key=8dcb3de47fe70382df13df111e1b7d8e&op=search&state=${params.id}&query=LGBTQ`
-const legiscanEndpoint = 'https://api.legiscan.com/?key=8dcb3de47fe70382df13df111e';
 export default function Home({ data, allStateIds }){
-  // console.log(data)
-  // console.log(allStateIds)
+
+  // overview of all states in the sidebar
+  const billData: IBillBasics = 
+    {
+      numPro: 200,
+      numAnti: 100,
+      bestStates: ['NY'],
+      worstStates: ['TX']
+    }
+  
+  // national bills displayed below map
+  const natBills: IBillDetails[] = [
+    {
+      id: 5,
+      status: BillStatus.PASSED,
+      title: 'Mock Bill',
+      description: 'Mock description',
+      url: 'http://localhost:3000/',
+      date: '2021-02-12',
+      state: 'NJ',
+      party: 'D'
+    }
+  ]
 
   return (
     <Layout home>
@@ -48,12 +66,9 @@ export default function Home({ data, allStateIds }){
 }
 
 export async function getStaticProps() {
-  const res = await fetch(legiscanEndpoint)
-  const data = await res.json()
   const allStateIds = getAllStateData()
   return {
     props: {
-      data,
       allStateIds,
     },
   }

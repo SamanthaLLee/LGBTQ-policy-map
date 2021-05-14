@@ -21,6 +21,7 @@ export function getAllStateData() {
       params: {
         id: state.id,
         val: state.val,
+        name: state.stateName
       }
     }
   })
@@ -29,7 +30,7 @@ export function getAllStateData() {
 
 export async function getStateData(id: string) {
   return {
-    id,
+    id
   }
 }
 

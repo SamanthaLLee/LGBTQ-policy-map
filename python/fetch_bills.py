@@ -1,34 +1,50 @@
 import requests
 import constants
+import json
 from collections import defaultdict
-
-class Bill:
-  def __init__(self, id, title):
-    self.id = id
-    self.title = title
 
 searchEndpoint = 'https://api.legiscan.com/?key='+constants.APIKey+'&op=search&state=all&query='
 billEndpoint = 'https://api.legiscan.com/?key='+constants.APIKey+'&op=getBill&id='
 
-billsByState = defaultdict(set)
-billsOverview = defaultdict(set)
-billsDetails = defaultdict(set)
+billIds = set()
+allBills = []
 
 for q in constants.queries:
-    response = requests.get(searchEndpoint+q)
-    while True:
-        for x in range(50):
-            bill = response['searchresults'][str(i)]
-            if( int(bill['relevance']) < constants.relevanceThreshold):
+    isRelevant = True
+    pageNum = 1
+    while (isRelevant):
+        response = requests.get(searchEndpoint+q+'&page='+str(pageNum)).json()
+        # response = constants.testJSON
+        for i in range(50):
+            bill = response['searchresult'][str(i)]
+            if( bill is None or int(bill['relevance']) < constants.relevanceThreshold):
+                isRelevant = False
                 break
             else:
-                billsOverview['state'].add( Bill(bill['bill_id'],bill['title']) )
+                billIds.add( bill['bill_id'] )
+        pageNum += 1
 
-for k, v in billsOverview:
-    for b in v:
-        response = requests.get(billEndpoint+b['bill_id'])
-        billsDetails['bill']['title']
-        billsDetails['bill']['description']
-        billsDetails['bill']['state_link']
-        billsDetails['bill']['status']
-   
+for b in billIds:
+    billDetails = requests.get(billEndpoint+str(b)).json()
+    # billDetails = constants.testBillJSON
+    print(b)
+    currBill = {}
+    currBill['id'] = billDetails['bill']['bill_id']
+    currBill['status'] = billDetails['bill']['status']
+    if billDetails['bill']['description'] == billDetails['bill']['title']:
+        currBill['title'] = "Untitled"
+    else:
+        currBill['title'] = billDetails['bill']['title']
+    currBill['description'] = billDetails['bill']['description']
+    currBill['url'] = billDetails['bill']['state_link']
+    currBill['date'] = billDetails['bill']['status_date']
+    currBill['state'] = billDetails['bill']['state']
+    print(len(billDetails['bill']['sponsors']))
+    if len(billDetails['bill']['sponsors']) == 0:
+        currBill['party'] = 'X'
+    else:
+        currBill['party'] = billDetails['bill']['sponsors'][0]['party']
+    allBills.append(currBill)
+
+with open('allBills.json', 'w', encoding='utf-8') as outfile:
+    json.dump(allBills, outfile, ensure_ascii=False, indent=4)

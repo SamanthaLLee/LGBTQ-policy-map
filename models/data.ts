@@ -6,9 +6,9 @@ export enum BillStatus {
     ENROLLED,
     PASSED,
     VETOED
-    // ... map w/ API response
 }
 
+// for index
 export interface IBillBasics {
     numPro: number
     numAnti: number
@@ -16,9 +16,10 @@ export interface IBillBasics {
     worstStates: string[]
 }
 
+// for [state] pages
 export interface IBillDetails {
     id: number
-    status: BillStatus
+    status: number
     title: string
     description: string
     url: string
@@ -26,4 +27,3 @@ export interface IBillDetails {
     state: string
     party: string
 }
-

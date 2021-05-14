@@ -9,8 +9,6 @@ import {
 } from "react-simple-maps";
 import Link from 'next/link'
 import { getAllStateData } from '../lib/state'
-import { IBillDetails, BillStatus } from '../models/data'
-
 import allStates from "../public/data/allstates.json";
 
 // const [tooltipContent, setTooltipContent] = useState("");
@@ -28,18 +26,7 @@ const offsets = {
   MD: [47, 10],
   DC: [49, 21]
 };
-const billData: IBillDetails[] = [
-  {
-    id: 5,
-    status: BillStatus.PASSED,
-    title: 'Mock Bill',
-    description: 'Mock description',
-    url: 'http://localhost:3000/',
-    date: '2021-02-12',
-    state: 'NJ',
-    party: 'D'
-  }
-]
+
 const MapChart = ({ allStateIds, setTooltipContent }) => {
   return (
     <ComposableMap data-tip="" projection="geoAlbersUsa">

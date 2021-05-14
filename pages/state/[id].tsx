@@ -1,46 +1,37 @@
 import Layout from '../../components/layout'
-import { getAllStateIds, getStateData } from '../../lib/state'
+import { getAllStateIds, getStateData, getAllStateData } from '../../lib/state'
 import Head from 'next/head'
 import Date from '../../components/date'
 import utilStyles from '../../styles/utils.module.css'
 import { GetStaticProps, GetStaticPaths } from 'next'
+import { IBillDetails, BillStatus } from '../../models/data'
+
 //import stateMappingData from '../../public/data/allStates'
 
-// export default function StatePage({
-//   postData
-// }: {
-//   postData: {
-//     title: string
-//     date: string
-//     contentHtml: string
-//   }
-// }) {
-//   return (
-//     <Layout>
-//       <Head>
-//         <title>{postData.title}</title>
-//       </Head>
-//       <article>
-//         <h1 className={utilStyles.headingXl}>{postData.title}</h1>
-//         <div className={utilStyles.lightText}>
-//           <Date dateString={postData.date} />
-//         </div>
-//         <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
-//       </article>
-//     </Layout>
-//   )
-// }
+const billData: IBillDetails[] = [
+  {
+    id: 5,
+    status: 1,
+    title: 'Mock Bill',
+    description: 'Mock description',
+    url: 'http://localhost:3000/',
+    date: '2021-02-12',
+    state: 'NJ',
+    party: 'D'
+  }
+]
 
 export default function StatePage({
-  postData
+  stateName,
+  stateData
 }){
   return (
     <Layout>
       <Head>
-        <title>{}</title>
+        <title>{stateName}</title>
       </Head>
       <article>
-        <h1 className={utilStyles.headingXl}>{}</h1>
+        <h1 className={utilStyles.headingXl}>{stateName}</h1>
         <div className={utilStyles.lightText}>
         </div>
         {/* <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} /> */}
@@ -58,10 +49,17 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const postData = await getStateData(params.id as string)
+  const allStateData = await getAllStateData()
+  const stateName = allStateData.find(element => element['params']['id'] === params.id)['params']['name'];
+  
+  const data = require('./allBills.json'); // pull data field from response w/ {}
+  const stateData = data.filter(element => element.state === params.id);
+
+  console.log(stateData)
   return {
     props: {
-      postData
+      stateName,
+      stateData
     }
   }
 }

@@ -2,7 +2,7 @@ import Layout from '../../components/layout'
 import { getAllStateIds, getStateData, getAllStateData } from '../../lib/state'
 import Head from 'next/head'
 import Date from '../../components/date'
-import Tabs from '../../components/Tabs'
+import PartyTabs from '../../components/PartyTabs'
 import utilStyles from '../../styles/utils.module.css'
 import { GetStaticProps, GetStaticPaths } from 'next'
 import { IBillDetails, BillStatus } from '../../models/data'
@@ -21,11 +21,14 @@ const billData: IBillDetails[] = [
     party: 'D'
   }
 ]
-
+interface IStatePageProps {
+  stateName: string,
+  stateData: IBillDetails[]
+}
 export default function StatePage({
   stateName,
   stateData
-}){
+}:IStatePageProps){
   return (
     <Layout>
       <Head>
@@ -37,7 +40,9 @@ export default function StatePage({
         <div className={utilStyles.lightText}></div>
 
         <section>
-      <Tabs></Tabs>
+      <PartyTabs
+        billsData = {stateData}
+      />
 
       </section>
 
@@ -55,12 +60,12 @@ export const getStaticPaths: GetStaticPaths = async () => {
   }
 }
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps: GetStaticProps = async ({ params }) => { // usually for outside source
   const allStateData = await getAllStateData()
   const stateName = allStateData.find(element => element['params']['id'] === params.id)['params']['name'];
   
   const data = require('../../public/data/allBills.json'); // pull data field from response w/ {}
-  const stateData = data.filter(element => element.state === params.id);
+  const stateData: IBillDetails[] = data.filter(element => element.state === params.id);
 
   console.log(stateData)
   return {

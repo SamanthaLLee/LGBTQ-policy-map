@@ -10,7 +10,7 @@ import ReactTooltip from "react-tooltip";
 import React, { useState } from 'react'
 import { getAllStateData } from '../lib/state'
 import { IBillBasics, IBillDetails, BillStatus } from '../models/data'
-import Tabs from '../components/Tabs' 
+import PartyTabs from '../components/PartyTabs' 
 
 export default function Home({ allStateIds, natData }){
   return (
@@ -29,7 +29,9 @@ export default function Home({ allStateIds, natData }){
       </section>
 
       <section>
-        <Tabs></Tabs>
+        <PartyTabs
+          billsData={natData}
+        />
 
       </section>
 

@@ -10,6 +10,7 @@ import {
 import Link from 'next/link'
 import { getAllStateData } from '../lib/state'
 import allStates from "../public/data/allstates.json";
+import ReactTooltip from "react-tooltip";
 
 // const [tooltipContent, setTooltipContent] = useState("");
 
@@ -27,8 +28,7 @@ const offsets = {
   DC: [49, 21]
 };
 
-const MapChart = ({ allStateIds, setTooltipContent, numBills }) => {
-
+const MapChart = ({ allStateIds, numBills, setTooltipContent }) => {
   const max = Math.max.apply(null, Object.values(numBills));
   let colormap = require('colormap')
   let colors = colormap({
@@ -37,8 +37,6 @@ const MapChart = ({ allStateIds, setTooltipContent, numBills }) => {
       format: 'hex',
       alpha: 1
   })
-
-  console.log(colors)
 
   return (
     <ComposableMap data-tip="" projection="geoAlbersUsa">
@@ -52,12 +50,15 @@ const MapChart = ({ allStateIds, setTooltipContent, numBills }) => {
                 stroke="#FFF"
                 geography={geo}
                 onMouseEnter={() => {
-                  // const { NAME, POP_EST } = geo.properties;
-                  // setTooltipContent(`${NAME} — ${rounded(POP_EST)}`);
-                  // setTooltipContent("test");
+                  var state = allStates.find(s => s.val === geo.id);
+                  var currNum = numBills[findStateIdByVal(allStateIds, geo.id).params.id]
+                  if(currNum == 1)
+                    setTooltipContent(state['stateName'] + ' – ' + currNum+' Bill');
+                  else
+                    setTooltipContent(state['stateName'] + ' – ' + currNum+' Bills');
                 }}
                 onMouseLeave={() => {
-                  // setTooltipContent("");
+                  setTooltipContent("");
                 }}
                 style={{
                   default: {

@@ -12,8 +12,10 @@ import { getAllStateData } from '../lib/state'
 import { IBillBasics, IBillDetails, BillStatus } from '../models/data'
 import PartyTabs from '../components/PartyTabs' 
 import { colors } from '@material-ui/core'
+import { statusMap } from '../public/data/statusMap'
 
 export default function Home({ allStateIds, natData, numBills }){
+  const [content, setContent] = useState("");
   return (
     <Layout home>
       <Head>
@@ -24,8 +26,8 @@ export default function Home({ allStateIds, natData, numBills }){
       </section>
 
       <section>
-        <MapChart numBills={numBills} allStateIds={allStateIds} setTooltipContent={""}></MapChart>
-        <ReactTooltip></ReactTooltip>
+        <MapChart numBills={numBills} allStateIds={allStateIds} setTooltipContent={setContent}></MapChart>
+        <ReactTooltip>{content}</ReactTooltip>
 
       </section>
 
@@ -51,7 +53,9 @@ export async function getStaticProps() {
     numBills[item['params']['id']] = data.filter(element => element.state === item['params']['id']).length
   });
 
-  console.log(numBills)
+  natData.forEach(function (item) {
+    item['textStatus'] = statusMap[item['status']]
+  });
 
   return {
     props: {

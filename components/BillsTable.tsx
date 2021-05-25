@@ -91,6 +91,7 @@ interface IBillsTableProps {
 
 const BillsTable = ({billsData,tableTitle,stateName}:IBillsTableProps) => {
     var newTitle = tableTitle +" in "+stateName
+    // console.log(billsData)
     const tableRef = React.createRef();
     return(
         <MaterialTable 
@@ -126,7 +127,7 @@ const BillsTable = ({billsData,tableTitle,stateName}:IBillsTableProps) => {
                   icon: OpenInNewIcon,
                   tooltip: 'Open Link',
                   onClick: (event, rowData) => {
-                    
+                    window.open(rowData['url'])
                   }
                 }
               ]}

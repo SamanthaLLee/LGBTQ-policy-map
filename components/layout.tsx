@@ -5,8 +5,7 @@ import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
 import NavigationBar from './NavigationBar'
 
-const name = 'Sam Lin Lee'
-export const siteTitle = 'Next.js Sample Website'
+export const siteTitle = 'LGBTQ+ Policy Map'
 
 export default function Layout({
   children,
@@ -48,7 +47,7 @@ export default function Layout({
   )
 }
 
-//todo:
-//check legiscan api for status (map)
-//color grade
-//table styling
+// questions:
+// mapping stateData
+// table styling
+// 

@@ -35,14 +35,20 @@ export default function Layout({
      <NavigationBar>
        
      </NavigationBar>
-      <main>{children}</main>
+
       {!home && (
         <div className={styles.backToHome}>
           <Link href="/">
-            <a>← Back to home</a>
+            <a>← Back to map</a>
           </Link>
         </div>
       )}
+      <main>{children}</main>
     </div>
   )
 }
+
+//todo:
+//check legiscan api for status (map)
+//color grade
+//table styling

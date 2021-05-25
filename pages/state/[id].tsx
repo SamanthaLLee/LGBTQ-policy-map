@@ -9,18 +9,21 @@ import { IBillDetails, BillStatus } from '../../models/data'
 
 //import stateMappingData from '../../public/data/allStates'
 
-const billData: IBillDetails[] = [
-  {
-    id: 5,
-    status: 1,
-    title: 'Mock Bill',
-    description: 'Mock description',
-    url: 'http://localhost:3000/',
-    date: '2021-02-12',
-    state: 'NJ',
-    party: 'D'
-  }
-]
+const statusMap = {
+  '1':'Introduced',
+  '2':'Engrossed',
+  '3':'Enrolled',
+  '4':'Passed',
+  '5':'Vetoed',
+  '6':'Failed',
+  '7':'Override',
+  '8':'Captered',
+  '9':'Refer',
+  '10':'Report Pss',
+  '11':'Report DNP',
+  '12':'Draft'
+} 
+
 interface IStatePageProps {
   stateName: string,
   stateData: IBillDetails[]
@@ -41,6 +44,7 @@ export default function StatePage({
 
         <section>
       <PartyTabs
+        stateName = {stateName}
         billsData = {stateData}
       />
 
@@ -67,7 +71,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => { // usually
   const data = require('../../public/data/allBills.json'); // pull data field from response w/ {}
   const stateData: IBillDetails[] = data.filter(element => element.state === params.id);
 
-  console.log(stateData)
+  stateData.forEach(function (item) {
+    item['textStatus'] = statusMap[item['status']]
+  });
+
+  
   return {
     props: {
       stateName,

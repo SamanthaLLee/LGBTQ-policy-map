@@ -64,9 +64,9 @@ interface IBillsTableProps {
 // ]
 
 // const columns = [
-//     { title: 'Title', field: 'title', headerStyle: {width: "50%"}},
-//     { title: 'Last Action Date', field: 'date',headerStyle: {width: "50%"}},
-//     { title: 'Status', field: 'status',headerStyle: {width: "50%"}},
+//     { title: 'Title', field: 'title', headerStyle: {width: "25%"}},
+//     { title: 'Last Action Date', field: 'date',headerStyle: {width: "10%"}},
+//     { title: 'Status', field: 'status',headerStyle: {width: "10%"}},
 // ]
 
 
@@ -101,7 +101,10 @@ const BillsTable = ({billsData,tableTitle,stateName}:IBillsTableProps) => {
             data={billsData} 
             title={newTitle}
             options={{
-                tableLayout: "fixed"
+                tableLayout: "fixed",
+                rowStyle:{
+                  fontSize:15,
+                }
             }}
             
             detailPanel={[

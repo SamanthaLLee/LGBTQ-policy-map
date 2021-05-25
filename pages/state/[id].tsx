@@ -59,6 +59,9 @@ export const getStaticProps: GetStaticProps = async ({ params }) => { // usually
 
   stateData.forEach(function (item) {
     item['textStatus'] = statusMap[item['status']]
+    if(item['textStatus'] == null){
+      item['textStatus'] = ""
+    }
   });
 
   

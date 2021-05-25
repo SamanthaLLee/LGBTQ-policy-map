@@ -21,22 +21,28 @@ export default function Home({ allStateIds, natData, numBills }){
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      <section className={utilStyles.headingMd}>
-        <p>Description</p>
+      <section className={utilStyles.headingLg}>
+        <p>Welcome to the <b>LGBTQ+ Policy Map!</b></p>
+      </section>
+
+      <section>
+        <p>LGBTQ+ rights remain heavily contested across America, 
+        and the purpose of this app is to provide a visual breakdown of legislative activity by state. 
+        For more details, click a state or check out the <a href="/about">about page</a>.</p>
       </section>
 
       <section>
         <MapChart numBills={numBills} allStateIds={allStateIds} setTooltipContent={setContent}></MapChart>
-        <ReactTooltip>{content}</ReactTooltip>
+        <ReactTooltip backgroundColor="black" textColor="white">{content}</ReactTooltip>
 
       </section>
 
-      <section>
+      <section className={utilStyles.headingMd}>
+        <p></p>National Bills
         <PartyTabs
           billsData={natData}
           stateName='the US'
         />
-
       </section>
 
     </Layout>

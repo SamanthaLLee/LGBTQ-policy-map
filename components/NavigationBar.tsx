@@ -13,12 +13,19 @@ export default function NavigationBar({
     return(
 
     <div>
-        <Link href="/">
-        <a>Home</a>
-        </Link>
-        <Link href="/">
-        <a>About</a>
-        </Link>
+      <ul id="nav">
+        <li><Link href="/">
+          <a>Home</a>
+          </Link></li>
+        <li><Link href="/about">
+          <a>About</a>
+          </Link></li>
+        <li><Link href="/about">
+          <a>Source</a>
+          </Link></li>
+          
+          
+      </ul>
     </div>
 
         

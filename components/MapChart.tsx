@@ -32,7 +32,7 @@ const MapChart = ({ allStateIds, numBills, setTooltipContent }) => {
   const max = Math.max.apply(null, Object.values(numBills));
   let colormap = require('colormap')
   let colors = colormap({
-      colormap: 'summer',
+      colormap: 'autumn',
       nshades: max+10,
       format: 'hex',
       alpha: 1
@@ -66,11 +66,11 @@ const MapChart = ({ allStateIds, numBills, setTooltipContent }) => {
                     outline: "none"
                   },
                   hover: {
-                    fill: "#F53",
+                    fill: "#AAA",
                     outline: "none"
                   },
                   pressed: {
-                    fill: "#E42",
+                    fill: "#464646",
                     outline: "none"
                   }
                 }}

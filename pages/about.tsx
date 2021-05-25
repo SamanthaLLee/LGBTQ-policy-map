@@ -25,20 +25,12 @@ export default function About({
           <title>About</title>
         </Head>
 
-        <Image
-              priority
-              src="/images/profile.png"
-              className={utilStyles.borderCircle}
-              height={144}
-              width={144}
-              alt={"alt"}
-            />
-            <h1 className={utilStyles.heading2Xl}>Sam Lin Lee</h1>
+        <h1 className={utilStyles.heading2Xl}>Methodology</h1>
 
 
         <section>
           <p>
-            about about about
+            Coming soon.
           </p>
         </section>
       </Layout>

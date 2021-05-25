@@ -38,7 +38,7 @@ export default function Home({ allStateIds, natData, numBills }){
       </section>
 
       <section className={utilStyles.headingMd}>
-        <p></p>National Bills
+        <p>National Bills</p>
         <PartyTabs
           billsData={natData}
           stateName='the US'

@@ -25,13 +25,31 @@ export default function About({
           <title>About</title>
         </Head>
 
-        <h1 className={utilStyles.heading2Xl}>Methodology</h1>
+        <h1 className={utilStyles.headingLg}>General</h1>
+        <section>
+          <p>
+            Yay Out in Tech U’s Mentorship Program
+          </p>
+        </section>
 
-
+        <h1 className={utilStyles.headingLg}>Methodology</h1>
         <section>
           <p>
             Coming soon.
           </p>
+        </section>
+
+        <h1 className={utilStyles.headingLg}>Todos</h1>
+        <section>
+          <p>
+            Coming soon.
+          </p>
+          <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
         </section>
       </Layout>
     )

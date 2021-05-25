@@ -27,7 +27,19 @@ const offsets = {
   DC: [49, 21]
 };
 
-const MapChart = ({ allStateIds, setTooltipContent }) => {
+const MapChart = ({ allStateIds, setTooltipContent, numBills }) => {
+
+  const max = Math.max.apply(null, Object.values(numBills));
+  let colormap = require('colormap')
+  let colors = colormap({
+      colormap: 'summer',
+      nshades: max+10,
+      format: 'hex',
+      alpha: 1
+  })
+
+  console.log(colors)
+
   return (
     <ComposableMap data-tip="" projection="geoAlbersUsa">
       <Geographies geography={geoUrl}>
@@ -39,7 +51,6 @@ const MapChart = ({ allStateIds, setTooltipContent }) => {
                 key={geo.rsmKey}
                 stroke="#FFF"
                 geography={geo}
-                fill="#DDD"
                 onMouseEnter={() => {
                   // const { NAME, POP_EST } = geo.properties;
                   // setTooltipContent(`${NAME} — ${rounded(POP_EST)}`);
@@ -50,7 +61,7 @@ const MapChart = ({ allStateIds, setTooltipContent }) => {
                 }}
                 style={{
                   default: {
-                    fill: "#D6D6DA",
+                    fill: colors[max-numBills[findStateIdByVal(allStateIds, geo.id).params.id]],
                     outline: "none"
                   },
                   hover: {

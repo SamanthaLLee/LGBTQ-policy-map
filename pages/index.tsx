@@ -11,8 +11,9 @@ import React, { useState } from 'react'
 import { getAllStateData } from '../lib/state'
 import { IBillBasics, IBillDetails, BillStatus } from '../models/data'
 import PartyTabs from '../components/PartyTabs' 
+import { colors } from '@material-ui/core'
 
-export default function Home({ allStateIds, natData }){
+export default function Home({ allStateIds, natData, numBills }){
   return (
     <Layout home>
       <Head>
@@ -23,7 +24,7 @@ export default function Home({ allStateIds, natData }){
       </section>
 
       <section>
-        <MapChart allStateIds={allStateIds} setTooltipContent={""}></MapChart>
+        <MapChart numBills={numBills} allStateIds={allStateIds} setTooltipContent={""}></MapChart>
         <ReactTooltip></ReactTooltip>
 
       </section>
@@ -31,6 +32,7 @@ export default function Home({ allStateIds, natData }){
       <section>
         <PartyTabs
           billsData={natData}
+          stateName='the US'
         />
 
       </section>
@@ -41,13 +43,21 @@ export default function Home({ allStateIds, natData }){
 
 export async function getStaticProps() {
   const allStateIds = getAllStateData()
-  
   const data = require('../public/data/allBills.json'); // pull data field from response w/ {}
-  const natData = data.filter(element => element.state === 'US');
+  const natData: IBillDetails[] = data.filter(element => element.state === 'US');
+  const numBills = {}
+
+  allStateIds.forEach(function (item) {
+    numBills[item['params']['id']] = data.filter(element => element.state === item['params']['id']).length
+  });
+
+  console.log(numBills)
+
   return {
     props: {
       allStateIds,
-      natData
+      natData,
+      numBills
     },
   }
 }

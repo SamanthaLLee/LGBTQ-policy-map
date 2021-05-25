@@ -55,8 +55,8 @@ export const stateMappingData = [
     { "id": "VT", "val": "50", "stateName": "Vermont" },
     { "id": "VA", "val": "51", "stateName": "Virginia" },
     { "id": "VI", "val": "78", "stateName": "" },
-    { "id": "WA", "val": "53", "stateName": "" },
-    { "id": "WV", "val": "54", "stateName": "" },
+    { "id": "WA", "val": "53", "stateName": "Washington" },
+    { "id": "WV", "val": "54", "stateName": "West Virginia" },
     { "id": "WI", "val": "55", "stateName": "Wisconsin" },
     { "id": "WY", "val": "56", "stateName": "Wyoming" }
   ]

@@ -1,20 +1,15 @@
 import Head from 'next/head'
-import Layout, { siteTitle } from '../components/layout'
-import utilStyles from '../styles/utils.module.css'
-import { getSortedPostsData } from '../lib/posts'
-import Link from 'next/link'
-import Date from '../components/date'
-import { GetStaticProps } from 'next'
-import MapChart from '../components/MapChart'
-import ReactTooltip from "react-tooltip";
 import React, { useState } from 'react'
+import ReactTooltip from "react-tooltip"
+import Layout, { siteTitle } from '../components/layout'
+import MapChart from '../components/MapChart'
+import PartyTabs from '../components/PartyTabs'
 import { getAllStateData } from '../lib/state'
-import { IBillBasics, IBillDetails, BillStatus } from '../models/data'
-import PartyTabs from '../components/PartyTabs' 
-import { colors } from '@material-ui/core'
+import { IBillDetails } from '../models/data'
 import { statusMap } from '../public/data/statusMap'
+import utilStyles from '../styles/utils.module.css'
 
-export default function Home({ allStateIds, natData, numBills }){
+export default function Home({ allStateIds, natData, numBills }) {
   const [content, setContent] = useState("");
   return (
     <Layout home>
@@ -26,9 +21,9 @@ export default function Home({ allStateIds, natData, numBills }){
       </section>
 
       <section>
-        <p>LGBTQ+ rights remain heavily contested across America, 
-        and the purpose of this app is to provide a visual breakdown of legislative activity by state. 
-        For more details, click a state or check out the <a href="/about">about page</a>.</p>
+        <p>LGBTQ+ rights remain heavily contested across America,
+          and the purpose of this app is to provide a visual breakdown of legislative activity by state.
+          For more details, click a state or check out the <a href="/about">about page</a>.</p>
       </section>
 
       <section>

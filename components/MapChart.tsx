@@ -1,18 +1,13 @@
-import React, { useState } from 'react'
 import { geoCentroid } from "d3-geo";
+import Link from 'next/link';
+import React from 'react';
 import {
-  ComposableMap,
+  Annotation, ComposableMap,
   Geographies,
   Geography,
-  Marker,
-  Annotation
+  Marker
 } from "react-simple-maps";
-import Link from 'next/link'
-import { getAllStateData } from '../lib/state'
 import allStates from "../public/data/allstates.json";
-import ReactTooltip from "react-tooltip";
-
-// const [tooltipContent, setTooltipContent] = useState("");
 
 const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
 
@@ -32,49 +27,49 @@ const MapChart = ({ allStateIds, numBills, setTooltipContent }) => {
   const max = Math.max.apply(null, Object.values(numBills));
   let colormap = require('colormap')
   let colors = colormap({
-      colormap: 'autumn',
-      nshades: max+10,
-      format: 'hex',
-      alpha: 1
+    colormap: 'autumn',
+    nshades: max + 10,
+    format: 'hex',
+    alpha: 1
   })
 
   return (
     <ComposableMap data-tip="" projection="geoAlbersUsa">
       <Geographies geography={geoUrl}>
-        {({ geographies }) => ( 
+        {({ geographies }) => (
           <>
             {geographies.map(geo => (
               <Link href={`/state/${findStateIdByVal(allStateIds, geo.id).params.id}`}>
-              <Geography
-                key={geo.rsmKey}
-                stroke="#FFF"
-                geography={geo}
-                onMouseEnter={() => {
-                  var state = allStates.find(s => s.val === geo.id);
-                  var currNum = numBills[findStateIdByVal(allStateIds, geo.id).params.id]
-                  if(currNum == 1)
-                    setTooltipContent(state['stateName'] + ' – ' + currNum+' Bill');
-                  else
-                    setTooltipContent(state['stateName'] + ' – ' + currNum+' Bills');
-                }}
-                onMouseLeave={() => {
-                  setTooltipContent("");
-                }}
-                style={{
-                  default: {
-                    fill: colors[max-numBills[findStateIdByVal(allStateIds, geo.id).params.id]],
-                    outline: "none"
-                  },
-                  hover: {
-                    fill: "#AAA",
-                    outline: "none"
-                  },
-                  pressed: {
-                    fill: "#464646",
-                    outline: "none"
-                  }
-                }}
-              /></Link>
+                <Geography
+                  key={geo.rsmKey}
+                  stroke="#FFF"
+                  geography={geo}
+                  onMouseEnter={() => {
+                    var state = allStates.find(s => s.val === geo.id);
+                    var currNum = numBills[findStateIdByVal(allStateIds, geo.id).params.id]
+                    if (currNum == 1)
+                      setTooltipContent(state['stateName'] + ' – ' + currNum + ' Bill');
+                    else
+                      setTooltipContent(state['stateName'] + ' – ' + currNum + ' Bills');
+                  }}
+                  onMouseLeave={() => {
+                    setTooltipContent("");
+                  }}
+                  style={{
+                    default: {
+                      fill: colors[max - numBills[findStateIdByVal(allStateIds, geo.id).params.id]],
+                      outline: "none"
+                    },
+                    hover: {
+                      fill: "#AAA",
+                      outline: "none"
+                    },
+                    pressed: {
+                      fill: "#464646",
+                      outline: "none"
+                    }
+                  }}
+                /></Link>
             ))}
             {geographies.map(geo => {
               const centroid = geoCentroid(geo);

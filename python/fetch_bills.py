@@ -3,7 +3,8 @@ import constants
 import json
 from collections import defaultdict
 
-searchEndpoint = 'https://api.legiscan.com/?key='+constants.APIKey+'&op=search&state=all&query='
+searchEndpoint = 'https://api.legiscan.com/?key=' + \
+    constants.APIKey+'&op=search&state=all&query='
 billEndpoint = 'https://api.legiscan.com/?key='+constants.APIKey+'&op=getBill&id='
 
 billIds = set()
@@ -17,11 +18,11 @@ for q in constants.queries:
         # response = constants.testJSON
         for i in range(50):
             bill = response['searchresult'][str(i)]
-            if( bill is None or int(bill['relevance']) < constants.relevanceThreshold):
+            if(bill is None or int(bill['relevance']) < constants.relevanceThreshold):
                 isRelevant = False
                 break
             else:
-                billIds.add( bill['bill_id'] )
+                billIds.add(bill['bill_id'])
         pageNum += 1
 
 for b in billIds:

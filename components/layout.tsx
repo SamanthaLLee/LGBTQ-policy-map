@@ -1,8 +1,6 @@
 import Head from 'next/head'
-import Image from 'next/image'
-import styles from './layout.module.css'
-import utilStyles from '../styles/utils.module.css'
 import Link from 'next/link'
+import styles from './layout.module.css'
 import NavigationBar from './NavigationBar'
 
 export const siteTitle = 'LGBTQ+ Policy Map'
@@ -31,9 +29,9 @@ export default function Layout({
         <meta name="og:title" content={siteTitle} />
         <meta name="twitter:card" content="summary_large_image" />
       </Head>
-     <NavigationBar>
-       
-     </NavigationBar>
+      <NavigationBar>
+
+      </NavigationBar>
 
       {!home && (
         <div className={styles.backToHome}>

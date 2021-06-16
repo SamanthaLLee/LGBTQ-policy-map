@@ -1,1 +1,3 @@
-This is a starter template for [Learn Next.js](https://nextjs.org/learn).
+LGBTQ+ rights remain heavily contested across America, and the LGBTQ+ Policy Map is a React web app that provides a visual breakdown of relevant legislative activity by state. By clicking on a state, users can view the details of all bills in that state that affect the LGBTQIA+ community, grouped by party support. To build the app and fetch the data, I used Next.js, Python, and the LegiScan API.
+
+This project was made possible by Out in Tech and its wonderful mentorship program. A huge thank you to my amazing mentor, Josh Wang, and the OIT U team!

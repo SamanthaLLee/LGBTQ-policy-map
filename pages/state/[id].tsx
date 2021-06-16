@@ -1,14 +1,11 @@
-import Layout from '../../components/layout'
-import { getAllStateIds, getStateData, getAllStateData } from '../../lib/state'
+import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
-import Date from '../../components/date'
+import Layout from '../../components/layout'
 import PartyTabs from '../../components/PartyTabs'
-import utilStyles from '../../styles/utils.module.css'
-import { GetStaticProps, GetStaticPaths } from 'next'
-import { IBillDetails, BillStatus } from '../../models/data'
+import { getAllStateData, getAllStateIds } from '../../lib/state'
+import { IBillDetails } from '../../models/data'
 import { statusMap } from '../../public/data/statusMap'
-
-//import stateMappingData from '../../public/data/allStates'
+import utilStyles from '../../styles/utils.module.css'
 
 interface IStatePageProps {
   stateName: string,
@@ -17,24 +14,24 @@ interface IStatePageProps {
 export default function StatePage({
   stateName,
   stateData
-}:IStatePageProps){
+}: IStatePageProps) {
   return (
     <Layout>
       <Head>
         <title>{stateName}</title>
       </Head>
-      
+
       <article>
         <h1 className={utilStyles.headingXl}>{stateName}</h1>
         <div className={utilStyles.lightText}></div>
 
         <section>
-      <PartyTabs
-        stateName = {stateName}
-        billsData = {stateData}
-      />
+          <PartyTabs
+            stateName={stateName}
+            billsData={stateData}
+          />
 
-      </section>
+        </section>
 
         {/* <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} /> */}
       </article>
@@ -53,18 +50,18 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps: GetStaticProps = async ({ params }) => { // usually for outside source
   const allStateData = await getAllStateData()
   const stateName = allStateData.find(element => element['params']['id'] === params.id)['params']['name'];
-  
+
   const data = require('../../public/data/allBills.json'); // pull data field from response w/ {}
   const stateData: IBillDetails[] = data.filter(element => element.state === params.id);
 
   stateData.forEach(function (item) {
     item['textStatus'] = statusMap[item['status']]
-    if(item['textStatus'] == null){
+    if (item['textStatus'] == null) {
       item['textStatus'] = ""
     }
   });
 
-  
+
   return {
     props: {
       stateName,

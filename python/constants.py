@@ -1,4 +1,4 @@
-APIKey = '8dcb3de47fe70382df13df111e1b7d8e'
+APIKey = 'fake-api-key'
 
 relevanceThreshold = 85
 

@@ -7,7 +7,8 @@ This project was made possible by [Out in Tech](https://outintech.com/) and its 
 
 # Methodology
 
-I fetched all the data from [LegiScan](https://legiscan.com/legiscan) via Python. After developing a list of keywords (including "queer," "same-sex," "transgender," etc.), I looped through each state and used the Search API to query bills that contained those words and had relevance scores of at least 85%. The Bill API provided further details for each bill, such as its description, its status, sponsors and their parties, and voting breakdowns. All bills were stored into a JSON file, which can updated with a simple run of the Python script, and the React app filters through the data to route pages and display visuals.
+I fetched all the data from [LegiScan](https://legiscan.com/legiscan) via Python. After developing a list of keywords (including "queer," "same-sex," "transgender," etc.), I looped through each state and used the Search API to query bills that contained those words and had relevance scores of at least 85%. The Bill API provided further details for each bill, such as its description, its status, sponsors and their parties, and voting breakdowns. All bills were stored into a JSON file, which can updated with a simple run of the Python script, and the React app filters through the data to route pages and display visuals. More specifically, the app groups the bills by state, then examines sponsorship to group bills on the state level by party support.
+
 
 
 # Todos
@@ -15,9 +16,9 @@ I fetched all the data from [LegiScan](https://legiscan.com/legiscan) via Python
 The methodology above is imperfect. Here are some future edits and implementations!
 
 *   Parties were meant to serve as proxies for the negative or positive impacts of the bills, but Democrat support is not always pro-queer, and Republican support is not always anti-queer. I want to revise this logic.
-*   More keywords should be added to include like asexual people, intersex people, non-binary people, and people of other identities.
+*   More keywords should be added to include asexual people, intersex people, non-binary people, and people of other identities.
 *   [Open States](https://docs.openstates.org/en/latest/api/v3/) has an API similar to LegiScan's, and I'd like to see if it can provide additional insights.
-*   The map is colored based on general legislative activity, but I'd like to add a scoring system to evaluate how much a state protects or harms LGBTQIA+ people.
+*   The map is colored based on general legislative activity, but I'd like to add a scoring system to evaluate how much a state protects or harms LGBTQ+ people.
 
 
 # Similar Resources

@@ -1,4 +1,4 @@
-import { stateMappingData } from '/Users/samlee/nextjs-blog/public/data/allStates'
+import { stateMappingData } from '../public/data/allStates'
 
 export function getAllStateIds() {
   return stateMappingData.map(state => {
